@@ -31,7 +31,7 @@ export default function Feature() {
           </Link>
         </li>
         <li className="w-4/12">
-          <Link href="/">
+          <Link href={`/posts/${1234}`}>
             <div>
               <Image
                 className="w-full h-50"
