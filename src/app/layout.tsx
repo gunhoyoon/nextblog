@@ -20,7 +20,7 @@ export default function RootLayout({
       <body>
         <div className="flex justify-between mt-5 mx-20">
           <header>
-            <h1>건호&#39;블로그</h1>
+            <h1>건호 블로그</h1>
           </header>
           <ul>
             <li className="flex gap-4">
