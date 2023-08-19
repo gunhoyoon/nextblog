@@ -12,6 +12,7 @@ export default function Home() {
       <Feature />
       <Slide />
       <Footer />
+
       <div></div>
     </>
   );

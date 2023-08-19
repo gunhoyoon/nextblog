@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 export default function Feature() {
   return (
-    <div className="mx-20">
+    <div className="mx-20 mb-10">
       <p className="font-bold mb-1">Featured Posts</p>
       <ul className="flex text-center gap-6">
         <li className="w-4/12">
