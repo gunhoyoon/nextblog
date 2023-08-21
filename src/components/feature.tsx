@@ -6,6 +6,7 @@ import Review_2023 from "../../public/blog/images/posts/review-2023.png";
 // import JsTip from "../../public/blog/images/posts/javascript-10-tips.png";
 import Image from "next/image";
 import Link from "next/link";
+import { getPosts } from "@/service/posts";
 export default function Feature() {
   return (
     <div className="mx-20 mb-10">
@@ -71,3 +72,6 @@ inline-block mb-2"
     </div>
   );
 }
+
+// 여기서도 마찬가지로 json 형식의 데이터를 가져와서 feature 가 true 인 친구들만 보여주는건데
+// 아 그럼 서버에서의 json을 사용하는게 아니라 클라이언트를

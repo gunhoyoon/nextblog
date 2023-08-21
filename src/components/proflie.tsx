@@ -5,11 +5,13 @@ import Link from "next/link";
 
 export default function Proflie() {
   return (
-    <div className="text-center mb-3">
+    <section className="text-center mb-3">
       <Image
-        className="rounded-full w-40 h-40 mx-auto"
+        className="rounded-full mx-auto"
         src={ProfileImage}
         alt="Proflie"
+        width={250}
+        height={250}
       />
       <h2 className="text-2xl font-bold">Hi, I&#39;m 건호</h2>
       <p className="font-medium text-xl">Front-end engineer</p>
@@ -20,6 +22,6 @@ export default function Proflie() {
       >
         Contact Me
       </Link>
-    </div>
+    </section>
   );
 }

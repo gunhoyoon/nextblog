@@ -1,5 +1,4 @@
 "use client";
-import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import JSbasic from "../../public/blog/images/posts/javascript-basic.png";
@@ -30,7 +29,7 @@ export default function Slide() {
     },
   };
   return (
-    <div className="mx-20 mb-20 text-center ">
+    <div className="mx-20 mb-20 text-center">
       <p className="text-left font-bold">You may like</p>
       <Carousel
         responsive={responsive}

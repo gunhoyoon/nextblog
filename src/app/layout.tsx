@@ -2,8 +2,18 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Link from "next/link";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Open_Sans } from "next/font/google";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
+const sans = Open_Sans({ subsets: ["latin"] });
+// sans {
+//   style: {
+//     fontFamily: "'__Open_Sans_f3cbcc', '__Open_Sans_Fallback_f3cbcc'",
+//     fontStyle: 'normal'
+//   },
+//   className: '__className_f3cbcc'
+// }
+// console.log("sans", sans);
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,22 +26,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <div className="flex justify-between mt-5 mx-20">
-          <header>
-            <h1>건호 블로그</h1>
-          </header>
-          <ul>
-            <li className="flex gap-4">
-              <Link href="/">home</Link>
-              <Link href="/about">about</Link>
-              <Link href="/posts">posts</Link>
-              <Link href="/contact">contact</Link>
-            </li>
-          </ul>
-        </div>
-        {children}
+    <html lang="en" className={sans.className}>
+      <body className="flex flex-col w-full max-w-screen-2xl mx-auto">
+        <Header />
+        <main className="grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );
