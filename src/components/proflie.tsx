@@ -11,7 +11,7 @@ export default function Proflie() {
         src={ProfileImage}
         alt="Proflie"
         width={250}
-        height={250}
+        height={250}  
       />
       <h2 className="text-2xl font-bold">Hi, I&#39;m 건호</h2>
       <p className="font-medium text-xl">Front-end engineer</p>
