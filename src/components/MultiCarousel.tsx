@@ -1,23 +1,23 @@
 "use client";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import JSbasic from "../../public/blog/images/posts/javascript-basic.png";
-import NodeBasic from "../../public/blog/images/posts/node-basic.png";
-import Review_2021 from "../../public/blog/images/posts/review-2021.png";
-import Review_2022 from "../../public/blog/images/posts/review-2022.png";
-import Image from "next/image";
-import Link from "next/link";
 
-export default function Slide() {
+//  외부 라이브러리를 별도의 컴포넌트를 만들어서 처리해줌
+// 상태 관리 , 이벤트 처리가 필요한 클라이언트 컴포넌트를 사용할 때 최소한의 크기로 만들어줌
+
+type Props = {
+  children: React.ReactNode;
+};
+
+export default function MultiCarousel({ children }: Props) {
   const responsive = {
     superLargeDesktop: {
-      // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 5,
+      items: 4,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 4,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -25,19 +25,21 @@ export default function Slide() {
     },
     mobile: {
       breakpoint: { max: 464, min: 0 },
-      items: 1,
+      items: 2,
     },
   };
+
   return (
-    <div className="mx-20 mb-20 text-center">
-      <p className="text-left font-bold">You may like</p>
-      <Carousel
-        responsive={responsive}
-        centerMode={true}
-        infinite={true}
-        autoPlay={true}
-      >
-        <div>
+    <Carousel
+      responsive={responsive}
+      centerMode={true}
+      infinite={true}
+      autoPlay={true}
+    >
+      {children}
+
+      {/* <SlidePost /> */}
+      {/* <div>
           <Image src={JSbasic} alt="javascript-basic" />
           <p className="text-right">2022-08-31</p>
           <dl>
@@ -86,9 +88,8 @@ export default function Slide() {
               my story
             </span>
           </Link>
-        </div>
-      </Carousel>
-    </div>
+        </div> */}
+    </Carousel>
   );
 }
 

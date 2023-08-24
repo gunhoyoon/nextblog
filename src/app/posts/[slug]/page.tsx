@@ -1,3 +1,5 @@
+import { getPost } from "@/service/posts";
+import { redirect } from "next/dist/server/api-utils";
 import React from "react";
 
 type Props = {
@@ -6,8 +8,10 @@ type Props = {
   };
 };
 
-export default function PostsPage({ params: slug }: Props) {
-  return <div>PostsPage</div>;
+export default async function PostsPage({ params: { slug } }: Props) {
+  const post = await getPost(slug);
+
+  return <div>{post?.title}</div>;
 }
 // 슬라이드 추가해야됨
 // home 에서 posts 클릭 시 posts 상세페이지로 넘아가야되는데 안됨,

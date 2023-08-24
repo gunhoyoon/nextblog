@@ -26,7 +26,6 @@ export default function AboutPage() {
           </dl>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
