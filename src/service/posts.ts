@@ -19,6 +19,7 @@ export async function getSlidePost(): Promise<Post[]> {
 
 export async function getAllPosts(): Promise<Post[]> {
   const filepath = path.join(process.cwd(), "data", "posts.json");
+
   return (
     readFile(filepath, "utf-8")
       .then<Post[]>(JSON.parse) // .then((date => JSON.pares(date))) 전달받는 것과 호출할때 들어가는 인자가 동일하면 생략 가능

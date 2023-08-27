@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { getFeatureedPost } from "@/service/posts";
 import PostGrid from "./PostGrid";
+import { getFeatureedPost } from "../service/posts";
 
 export default async function Feature() {
   const posts = await getFeatureedPost();

@@ -1,22 +1,21 @@
-import { getSlidePost } from "@/service/posts";
 import React from "react";
 import MultiCarousel from "./MultiCarousel";
 import PostCard from "./PostCard";
+import { getSlidePost } from "../service/posts";
 
 export default async function SlidePost() {
   const posts = await getSlidePost();
   return (
-    <section className="mx-20 mb-10">
-      <h2>You may Like</h2>
-      {/* 서버 처리 */}
-      <MultiCarousel>
-        {posts.map((post) => (
-          <PostCard key={post.path} post={post} />
-        ))}
-        {/* chlidren */}
-      </MultiCarousel>
-      {/* 클라이언트 처리 */}
-    </section>
+    // <section className="mx-20 mb-10">
+    //   <h2>You may Like</h2>
+    //   <MultiCarousel>
+    //     {posts.map((post) => (
+    //       <PostCard key={post.path} post={post} />
+    //     ))}
+    //     {/* chlidren */}
+    //   </MultiCarousel>
+    // </section>
+    <></>
   );
 }
 
