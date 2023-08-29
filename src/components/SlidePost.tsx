@@ -6,16 +6,15 @@ import { getSlidePost } from "../service/posts";
 export default async function SlidePost() {
   const posts = await getSlidePost();
   return (
-    // <section className="mx-20 mb-10">
-    //   <h2>You may Like</h2>
-    //   <MultiCarousel>
-    //     {posts.map((post) => (
-    //       <PostCard key={post.path} post={post} />
-    //     ))}
-    //     {/* chlidren */}
-    //   </MultiCarousel>
-    // </section>
-    <>{"dsadad"}</>
+    <section className="mx-20 mb-10">
+      <h2>You may Like</h2>
+      <MultiCarousel>
+        {posts.map((post) => (
+          <PostCard key={post.path} post={post} />
+        ))}
+        {/* chlidren */}
+      </MultiCarousel>
+    </section>
   );
 }
 

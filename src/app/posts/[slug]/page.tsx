@@ -1,6 +1,5 @@
-import { getPost } from "@/service/posts";
-import { redirect } from "next/dist/server/api-utils";
 import React from "react";
+import { getPost } from "../../../service/posts";
 
 type Props = {
   params: {

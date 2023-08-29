@@ -7,7 +7,7 @@ type Props = {
 };
 // Props.posts
 
-export default async function PostGrid({ posts }: Props) {
+export default function PostGrid({ posts }: Props) {
   return (
     <ul className="grid gap-2 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg-grid-cols-4">
       {/* grid 사용으로 스크린 크기별 컬럼 설정 */}

@@ -2,6 +2,7 @@ import React from "react";
 import Proflie from "../components/proflie";
 import MultiCarousel from "../components/MultiCarousel";
 import Feature from "../components/feature";
+import SlidePost from "../components/SlidePost";
 
 export default function HomePage() {
   return (
@@ -9,7 +10,8 @@ export default function HomePage() {
       <Proflie />
       {/* @ts-expect-error Async Server Component */}
       <Feature />
-      <MultiCarousel />
+      {/* @ts-expect-error Async Server Component */}
+      <SlidePost />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
-import { Post } from "@/service/posts";
 import React, { useEffect, useState } from "react";
 import PostCard from "./PostCard";
+import { Post } from "../service/posts";
 export default function Server() {
   const [posts, setPosts] = useState<Post[]>();
   useEffect(() => {

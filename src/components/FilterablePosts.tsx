@@ -1,8 +1,8 @@
 "use client";
-import { Post } from "@/service/posts";
 import React, { useState } from "react";
 import PostGrid from "./PostGrid";
 import Categories from "./Categories";
+import { Post } from "../service/posts";
 
 type Props = {
   posts: Post[];
@@ -15,14 +15,13 @@ export default function FilterablePosts({ posts, categories }: Props) {
   const filtered =
     selected === "All_Posts"
       ? posts
-      : posts.filter((post) => post.category == selected);
+      : posts.filter((post) => post.category === selected);
   return (
     <section>
-      {/* @ts-expect-error Async Server Component */}
-      <PostGrid posts={posts} />
+      <PostGrid posts={filtered} />
       <Categories
-        selected={selected}
         onClick={setSelected}
+        selected={selected}
         categories={categories}
       />
     </section>

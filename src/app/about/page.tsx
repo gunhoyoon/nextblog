@@ -1,6 +1,5 @@
-import Footer from "@/components/footer";
-import Proflie from "@/components/proflie";
 import React from "react";
+import Proflie from "../../components/proflie";
 
 export default function AboutPage() {
   return (

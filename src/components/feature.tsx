@@ -1,30 +1,17 @@
 import React from "react";
 import Image from "next/image";
+import { getAllPosts } from "../service/posts";
 import Link from "next/link";
-<<<<<<< HEAD
-import PostGrid from "./PostGrid";
-import { getFeatureedPost } from "../service/posts";
-
-export default async function Feature() {
-  const posts = await getFeatureedPost();
-
-=======
-import { getAllPosts } from "@/service/posts";
 
 export default async function Feature() {
   const posts = await getAllPosts();
   const featurePosts = posts.filter((item) => item.featured == true);
   console.log(featurePosts);
->>>>>>> 9de60ec (save)
+
   return (
     <section className="mx-20 mb-10">
       <p className="font-bold mb-1">Featured Posts</p>
-<<<<<<< HEAD
-      {/* async 와 await 를 가져와서 사용하는 경우 에러가 발생함. next13 ,ts 자체 에러 */}
-      {/* @ts-expect-error Async Server Component */}
-      <PostGrid posts={posts} />
-    </section>
-=======
+
       <ul className="flex text-center gap-6">
         {featurePosts.map((item, index) => (
           <li key={index} className="w-3/12 shadow-md rounded">
@@ -53,8 +40,7 @@ inline-block mb-2"
           </li>
         ))}
       </ul>
-    </div>
->>>>>>> 9de60ec (save)
+    </section>
   );
 }
 

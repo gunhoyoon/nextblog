@@ -1,5 +1,5 @@
-import FilterablePosts from "@/components/FilterablePosts";
-import { getAllPosts } from "@/service/posts";
+import FilterablePosts from "../../components/FilterablePosts";
+import { getAllPosts } from "../../service/posts";
 import React from "react";
 
 export default async function PostPage() {
