@@ -1,9 +1,7 @@
 import React from "react";
 import Proflie from "../components/proflie";
-import MultiCarousel from "../components/MultiCarousel";
 import Feature from "../components/feature";
 import SlidePost from "../components/SlidePost";
-
 export default function HomePage() {
   return (
     <>
