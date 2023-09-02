@@ -1,5 +1,5 @@
 import React from "react";
-import { getPost } from "../../../service/posts";
+import { getPostData } from "../../../service/posts";
 
 type Props = {
   params: {
@@ -7,14 +7,18 @@ type Props = {
   };
 };
 
-export default async function PostsPage({ params: { slug } }: Props) {
-  const post = await getPost(slug);
+export default async function PostPage({ params: { slug } }: Props) {
+  const post = await getPostData(slug);
+  console.log(post, "POST");
+  return (
+    <div>
+      <h1>{post.title}</h1>
 
-  return <div>{post?.title}</div>;
+      <pre>{post.content}</pre>
+    </div>
+  );
 }
-// 슬라이드 추가해야됨
-// home 에서 posts 클릭 시 posts 상세페이지로 넘아가야되는데 안됨,
-// about , posts , contact
 
-// 나나 나중에 하이라이트 뭔지 보기
-// 라이브러리 사이트 찾아놨음, 필요한거 보고 하면됨
+// 슬러그를 통해 들어오는 path 를 fileName으로 받아서
+// 전체 데이터를 불러와 전체 안에서 있는 이름인지를 비교해서 없다면, 에러 던져줌
+// 있으면 파일을 읽어올 수 있는거니까 uth-8 ㄹ
