@@ -2,7 +2,8 @@ import React from "react";
 import { getPostData } from "../../../service/posts";
 import ReactMarkdown from "react-markdown";
 import ReactMarkdownViewer from "@/components/ReactMarkdownViewer";
-
+import Image from "next/image";
+import { AiTwotoneCalendar } from "react-icons/ai";
 type Props = {
   params: {
     slug: string;
@@ -10,14 +11,31 @@ type Props = {
 };
 
 export default async function PostPage({ params: { slug } }: Props) {
-  const post = await getPostData(slug);
-  console.log(post, "POST");
+  const { title, content, description, path, date } = await getPostData(slug);
+  // 이제 페이지 자체를 좀 더 디테일하게 꾸밀거고 Image 태그 사용해서 ㄷ이전과 같이 path.png로 이미지 불러올거고 상세페이지를 좀더 꾸밀거임
+  // 구조분해 사용한거 잊지마셈
   return (
-    <div>
-      <h1>{post.title}</h1>
-      {/* <pre>{post.content}</pre> */}
-      <ReactMarkdownViewer content={post.content} />
-    </div>
+    <article className="rounded-lg m-4 bg-gray-100 overflow-hidden">
+      <Image
+        className="w-full h-1/5 max-h-[600px]"
+        src={`/blog/images/posts/${path}.png`}
+        alt={`${title}`}
+        width={760}
+        height={420}
+      />
+      <section className="flex flex-col p-4">
+        <div className="flex items-center self-end text-sky-600">
+          <AiTwotoneCalendar />
+          <p className="font-semibold ml-2">{date.toString()}</p>
+        </div>
+        <h1 text-4xl font-bold>
+          {title}
+        </h1>
+        <p className="text-xl font-bold">{description}</p>
+        <div className="w-44 border-2 border-sky-600" mt-4 mb-8 />
+        <ReactMarkdownViewer content={content} />
+      </section>
+    </article>
   );
 }
 
