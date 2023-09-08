@@ -1,9 +1,7 @@
 import React from "react";
 import { getPostData } from "../../../service/posts";
-import ReactMarkdown from "react-markdown";
-import ReactMarkdownViewer from "@/components/ReactMarkdownViewer";
 import Image from "next/image";
-import { AiTwotoneCalendar } from "react-icons/ai";
+import PostDetailCard from "@/components/PostDetailCard";
 type Props = {
   params: {
     slug: string;
@@ -23,21 +21,16 @@ export default async function PostPage({ params: { slug } }: Props) {
         width={760}
         height={420}
       />
-      <section className="flex flex-col p-4">
-        <div className="flex items-center self-end text-sky-600">
-          <AiTwotoneCalendar />
-          <p className="font-semibold ml-2">{date.toString()}</p>
-        </div>
-        <h1 text-4xl font-bold>
-          {title}
-        </h1>
-        <p className="text-xl font-bold">{description}</p>
-        <div className="w-44 border-2 border-sky-600" mt-4 mb-8 />
-        <ReactMarkdownViewer content={content} />
-      </section>
+      <PostDetailCard
+        date={date}
+        title={title}
+        description={description}
+        content={content}
+      />
     </article>
   );
 }
+// 컴포넌트 역할 나누기 PostDetailCard
 
 // 슬러그를 통해 들어오는 path 를 fileName으로 받아서
 // 전체 데이터를 불러와 전체 안에서 있는 이름인지를 비교해서 없다면, 에러 던져줌

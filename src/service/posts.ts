@@ -40,7 +40,7 @@ export async function getPost(path: string): Promise<Post | undefined> {
 
 export async function getPostData(fileName: string): Promise<PostData> {
   const filePath = path.join(process.cwd(), "data", "posts", `${fileName}.md`);
-  console.log(filePath, "filePath");
+  // console.log(filePath, "filePath");
   const metadata = await getAllPosts() //
     .then((posts) => posts.find((post) => post.path === fileName));
   if (!metadata) throw new Error(`${filePath} 에 해당하는 포스트 따윈 없음`);
