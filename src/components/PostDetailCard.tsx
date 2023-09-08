@@ -1,20 +1,11 @@
 import React from "react";
 import { AiTwotoneCalendar } from "react-icons/ai";
 import ReactMarkdownViewer from "./ReactMarkdownViewer";
+import { PostData } from "@/service/posts";
 
-type Props = {
-  date: Date;
-  title: string;
-  description: string;
-  content: string;
-};
-
-export default function PostDetailCard({
-  date,
-  title,
-  description,
-  content,
-}: Props) {
+export default function PostDetailCard({ post }: { post: PostData }) {
+  // 포스트 구조분해// 포스트 타입의 구조분해 를 함으로써 필요한 속성만 가져올 수 있게 됨
+  const { title, description, date, content } = post;
   return (
     <section className="flex flex-col p-4">
       <div className="flex items-center self-end text-sky-600">
