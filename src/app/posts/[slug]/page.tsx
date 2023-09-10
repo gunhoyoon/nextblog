@@ -2,6 +2,8 @@ import React from "react";
 import { getPostData } from "../../../service/posts";
 import Image from "next/image";
 import PostDetailCard from "@/components/PostDetailCard";
+import Link from "next/link";
+import PostsCardPreview from "@/components/PostsCardPreview";
 type Props = {
   params: {
     slug: string;
@@ -11,8 +13,11 @@ type Props = {
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
   // 전체 데이터를 담은 Post // props로 넘겨주는 데이터
-  const { title, path } = post;
+  // 이전 다음 게시물을 보여주고 넘어가게 하기 위해 prev , next 추가
+  const { title, path, prev, next } = post;
+  // post 상세 페이지
   // 전체 데이터인 post에서 title과 path만 구조분해해서 사용
+  // 해당 페이지에선 상세 내용을 반환하기 때문에 이 페이지가 제공할건 , 상세 페이지 내용 / 이전 글 다음 글로 이동하는 기능이 필요함
 
   // 해당 컴포넌트에선 getPostData 에 해당하는 데이터중 title과 path 를 사용할거고
   // postDetailCard 에서 사용할 post 전체를 props 으로 넘겨줄거임
@@ -29,9 +34,14 @@ export default async function PostPage({ params: { slug } }: Props) {
         height={420}
       />
       <PostDetailCard post={post} />
+
+      {/* @ts-expect-error Async Server Component */}
+      <PostsCardPreview post={slug} />
     </article>
   );
 }
+// props 넘겨줄 때 post란 이름으로 넘겨줬잖아 ., 근데 왜 slug 로 받아 건호야ㅑㅑㅑㅑㅑㅕㅑㅑㅑ
+
 // 컴포넌트 역할 나누기 PostDetailCard
 
 // 슬러그를 통해 들어오는 path 를 fileName으로 받아서
@@ -41,3 +51,6 @@ export default async function PostPage({ params: { slug } }: Props) {
 // 이렇게만 사용하면 처음엔 아무런 스타일이 적용되어있지 않는데
 // 이건 테일윈드를 사용하게 되면 기본적으로 html 태그의 값들을 초기화시켜서 테일윈드의 className으로 적용해주지 않는 이상 스타일이 나타나지 않음
 // 이와같은 현상을 해결하기 위해 https://tailwindcss.com/docs/typography-plugin 에서  -D @tailwindcss/typography 설치해줘야ㅕ함
+
+// 다음 포스트 , 이전 포스트 카드를 구현할 때에 한번에 너무 포괄적으로 생각하다보면 구현 자체가 머릿속에 그려지지않는데,
+// 전체의 데이터를 불러오게 해야된다면, 우선 하나라도 먼저 화면에 그려보고 하나씩 연결지어주는 순서로 구현하다보면 사고를 확장해가며 완성하게됨

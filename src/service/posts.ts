@@ -51,11 +51,12 @@ export async function getPostData(fileName: string): Promise<PostData> {
   // 그 친구 반환 / 없으면 undefined 반환
   if (!post) throw new Error(`${filePath} 에 해당하는 포스트 따윈 없음`);
 
-  const index = posts.indexOf(post); // 이렇게 사용하게 되면 posts에 post 라는 인덱스가 존재하는지 확인 / 없으면 -1 리턴
+  const index = posts.indexOf(post); // 이렇게 사용하게 되면 posts에 post 라는 인덱스가 존재하는지 확인 / 없으면 -1 리턴 / 있으면 해당 첫번째 인덱스 반환
   const next = index > 0 ? posts[index - 1] : null;
   const prev = index < posts.length - 1 ? posts[index + 1] : null;
   // next = index 의 리턴값이 값이 있다면 1 / 없다면 -1을 반환하기 때문에 , 있다면 posts[index -1] 을 반환하게 되는 것임
   // 현재 정렬된 배열 기준에서 최신 순서대로 있기 때문에 값이 작아질수록 최근 게시물이 반환될거임
+  // 배열의 범위를 벗어나지 않게 하기 위해서 length -1 로 조건을 비교해줘야함
 
   // prev = index가 posts.length -1 보다 크다 라고하면 마지막 게시물을 넘어가니 조건이 알맞지않고 작다 라고 작성하는게 맞음
   // index가 posts.length -1 보다 작아야 이전 게시물이 있는거임 index 자체는 현재 게시물의 index 이기 때문에 게시물 전체크기보다
@@ -63,6 +64,7 @@ export async function getPostData(fileName: string): Promise<PostData> {
 
   const content = await readFile(filePath, "utf-8");
   return { ...post, content, next, prev };
+  // 이렇게 해서 해당 함수의 역할이 post의 모든 데이터를 반환하게 됨
 }
 // 타입을 통해 렌더링이 되는걸로 착각했음. next나 prev의 리턴을 보면 값이 없을 땐 null 이지만 값이 있게 된다면, 해당 post의 값을 반환하기 때문에
 // 타입을 정의해줄 땐 post의 타입인 Post 타입 혹은 null 타입으로 정의를 해줘야하는거임
