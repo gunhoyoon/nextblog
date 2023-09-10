@@ -12,7 +12,11 @@ export type Post = {
   featured: boolean;
 };
 // Post 에 할당된 타입 + content 에 해당하는 타입 //
-export type PostData = Post & { content: string };
+export type PostData = Post & {
+  content: string;
+  next: Post | null;
+  prev: Post | null;
+};
 
 export async function getFeatureedPost(): Promise<Post[]> {
   return getAllPosts().then((posts) => posts.filter((item) => item.featured));
@@ -41,13 +45,32 @@ export async function getPost(path: string): Promise<Post | undefined> {
 export async function getPostData(fileName: string): Promise<PostData> {
   const filePath = path.join(process.cwd(), "data", "posts", `${fileName}.md`);
   // console.log(filePath, "filePath");
-  const metadata = await getAllPosts() //
-    .then((posts) => posts.find((post) => post.path === fileName));
-  if (!metadata) throw new Error(`${filePath} 에 해당하는 포스트 따윈 없음`);
+  const posts = await getAllPosts(); //
+  const post = posts.find((post) => post.path === fileName);
+  // post = 전체 데이터중 상세 페이지 접근 시에 넘겨받는 post 값을 통해 path와 fileName(현재 경로 + md 파일 이름) 비교해서 상세페이지 내용이 있다면
+  // 그 친구 반환 / 없으면 undefined 반환
+  if (!post) throw new Error(`${filePath} 에 해당하는 포스트 따윈 없음`);
+
+  const index = posts.indexOf(post); // 이렇게 사용하게 되면 posts에 post 라는 인덱스가 존재하는지 확인 / 없으면 -1 리턴
+  const next = index > 0 ? posts[index - 1] : null;
+  const prev = index < posts.length - 1 ? posts[index + 1] : null;
+  // next = index 의 리턴값이 값이 있다면 1 / 없다면 -1을 반환하기 때문에 , 있다면 posts[index -1] 을 반환하게 되는 것임
+  // 현재 정렬된 배열 기준에서 최신 순서대로 있기 때문에 값이 작아질수록 최근 게시물이 반환될거임
+
+  // prev = index가 posts.length -1 보다 크다 라고하면 마지막 게시물을 넘어가니 조건이 알맞지않고 작다 라고 작성하는게 맞음
+  // index가 posts.length -1 보다 작아야 이전 게시물이 있는거임 index 자체는 현재 게시물의 index 이기 때문에 게시물 전체크기보다
+  // 그 숫자가 작다면 아직 끝까지 안간거임 index 가 더 증가해도 되는거임
 
   const content = await readFile(filePath, "utf-8");
-  return { ...metadata, content };
+  return { ...post, content, next, prev };
 }
+// 타입을 통해 렌더링이 되는걸로 착각했음. next나 prev의 리턴을 보면 값이 없을 땐 null 이지만 값이 있게 된다면, 해당 post의 값을 반환하기 때문에
+// 타입을 정의해줄 땐 post의 타입인 Post 타입 혹은 null 타입으로 정의를 해줘야하는거임
+
+// index = posts.indexOf(post);
+// const next = index > 0 ? posts[index-1] : null;
+// const content = await readFile(filePath , 'utf-8')
+// 지금은 sort를 사용해서 가장 최근 데이터 순으로 정렬이 된 상태니까
 
 // 일단 슬러그를 통해서 해당 게시물 클릭 시 post안에 있는 path를 통해 주소에 전달되는건 알았음
 // 감이 안왔던 부분은 그 path와 posts안에 있는 md파일의 데이터를 어떻게 읽어오는지 감이 안왔음

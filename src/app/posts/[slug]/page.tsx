@@ -10,7 +10,10 @@ type Props = {
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
+  // 전체 데이터를 담은 Post // props로 넘겨주는 데이터
   const { title, path } = post;
+  // 전체 데이터인 post에서 title과 path만 구조분해해서 사용
+
   // 해당 컴포넌트에선 getPostData 에 해당하는 데이터중 title과 path 를 사용할거고
   // postDetailCard 에서 사용할 post 전체를 props 으로 넘겨줄거임
   // 그리고 그 넘겨받은 props 데이터를 또 구조분해해서 title , description, date, content 만 사용할 것이고,

@@ -4,6 +4,7 @@ import React from "react";
 
 export default async function PostPage() {
   const posts = await getAllPosts();
+  // console.log(posts[0], "posts");
   const categories = [...new Set(posts.map((post) => post.category))];
   // 카테고리 중복없는 카테고리 배열
   return <FilterablePosts posts={posts} categories={categories} />;
