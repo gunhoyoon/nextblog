@@ -2,7 +2,6 @@ import React from "react";
 import { getPostData } from "../../../service/posts";
 import Image from "next/image";
 import PostDetailCard from "@/components/PostDetailCard";
-import Link from "next/link";
 import PostsCardPreview from "@/components/PostsCardPreview";
 type Props = {
   params: {
@@ -35,8 +34,11 @@ export default async function PostPage({ params: { slug } }: Props) {
       />
       <PostDetailCard post={post} />
 
-      {/* @ts-expect-error Async Server Component */}
-      <PostsCardPreview post={slug} />
+      {/* <PostsCardPreview post={slug} /> */}
+      <section className="flex shadow-md">
+        {prev && <PostsCardPreview post={prev} type="prev" />}
+        {next && <PostsCardPreview post={next} type="next" />}
+      </section>
     </article>
   );
 }
