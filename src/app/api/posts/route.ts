@@ -15,3 +15,15 @@ export async function GET(requset: Request) {
 
 // 요청이 틀릴게 없는데 주소창에 /api/posts 해도 에러가 자꾸 나왔떤 이유
 // export default 를 해서 405 에러가 뜬거임
+
+// const res = fetch("http://localhost:3000/api/feedback", {
+//   method: "POST",
+//   headers: {
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify({
+//     name,
+//     email,
+//     message,
+//   }),
+// });
