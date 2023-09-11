@@ -3545,6 +3545,7 @@ next@canary:
     eslint: 8.47.0
     eslint-config-next: 13.4.18
     next: canary
+    nodemailer: ^6.9.5
     postcss: 8.4.28
     react: 18.2.0
     react-dom: 18.2.0
@@ -3583,6 +3584,13 @@ next@canary:
   version: 2.0.13
   resolution: "node-releases@npm:2.0.13"
   checksum: 17ec8f315dba62710cae71a8dad3cd0288ba943d2ece43504b3b1aa8625bf138637798ab470b1d9035b0545996f63000a8a926e0f6d35d0996424f8b6d36dda3
+  languageName: node
+  linkType: hard
+
+"nodemailer@npm:^6.9.5":
+  version: 6.9.5
+  resolution: "nodemailer@npm:6.9.5"
+  checksum: e39282795e09f0685691b1511f74e2dc4703ba6ecd55d964c2f8a1b54591e5b284228c90cd6a203b498a5a1ea2610415306e8d7eda0b3cd9ebdcb210f05b2846
   languageName: node
   linkType: hard
 
