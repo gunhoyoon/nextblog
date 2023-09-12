@@ -1,68 +1,38 @@
-// import { sendEmail } from "@/service/email";
-// import * as yup from "yup";
-
-// const bodySchema = yup.object().shape({
-//   from: yup.string().email().required(),
-//   // 스트링 + 이메일 형태 + 값이 있어야된다
-//   subject: yup.string().required(),
-//   // 스트링 형태 + 값이 있어야된다
-//   message: yup.string().required(),
-//   // 스트링 형태 + 값이 있어야된다
-// });
-// // 데이터 형태 정하기
-
-// export async function POST(requset: Request) {
-//   const body = await requset.json();
-//   if (!bodySchema.isValidSync(body)) {
-//     return new Response(JSON.stringify({ message: "유효하지 않은 포멧" }), {
-//       status: 400,
-//     });
-//   }
-//   // 노드 메일러를 이용해서 메일을 전송하면 됨
-//   return sendEmail(body) //
-//     .then(
-//       () =>
-//         new Response(
-//           JSON.stringify({ message: "메일을 성공적으로 보냈습니다" }),
-//           { status: 200 }
-//         )
-//     )
-//     .catch((error) => {
-//       console.log(error);
-//       return new Response(
-//         JSON.stringify({ message: "메일 전송에 실패하였습니다" }),
-//         { status: 500 }
-//       );
-//     });
-// }
 import { sendEmail } from "@/service/email";
 import * as yup from "yup";
 
 const bodySchema = yup.object().shape({
   from: yup.string().email().required(),
+  // 스트링 + 이메일 형태 + 값이 있어야된다
   subject: yup.string().required(),
+  // 스트링 형태 + 값이 있어야된다
   message: yup.string().required(),
+  // 스트링 형태 + 값이 있어야된다
 });
+// 데이터 형태 정하기
 
-export async function POST(req: Request) {
-  const body = await req.json();
+export async function POST(requset: Request) {
+  const body = await requset.json();
   if (!bodySchema.isValidSync(body)) {
-    return new Response(JSON.stringify({ message: "메일 전송에 실패함!" }), {
+    return new Response(JSON.stringify({ message: "유효하지 않은 포멧" }), {
       status: 400,
     });
   }
+  // 노드 메일러를 이용해서 메일을 전송하면 됨
   return sendEmail(body) //
     .then(
       () =>
-        new Response(JSON.stringify({ message: "메일을 성공적으로 보냈음" }), {
-          status: 200,
-        })
+        new Response(
+          JSON.stringify({ message: "메일을 성공적으로 보냈습니다" }),
+          { status: 200 }
+        )
     )
     .catch((error) => {
-      console.error(error);
-      return new Response(JSON.stringify({ message: "메일 전송에 실패함!" }), {
-        status: 500,
-      });
+      console.log(error);
+      return new Response(
+        JSON.stringify({ message: "메일 전송에 실패하였습니다" }),
+        { status: 500 }
+      );
     });
 }
 
