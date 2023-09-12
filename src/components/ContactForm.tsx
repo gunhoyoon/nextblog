@@ -1,6 +1,7 @@
 "use client";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Banner, { BannerData } from "./Banner";
+import { sendContactEmail } from "@/service/contact";
 
 export default function ContactForm() {
   type Form = {
@@ -8,24 +9,33 @@ export default function ContactForm() {
     subject: string;
     message: string;
   };
-  const [text, setText] = useState<Form>({
+  const DEFAULT_DATA = {
     from: "",
     subject: "",
     message: "",
-  });
+  };
+  const [form, setForm] = useState<Form>(DEFAULT_DATA);
   const [banner, setBanner] = useState<BannerData | null>(null);
 
   const onChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setText((prev) => ({ ...prev, [name]: value }));
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(text);
-    setBanner({ message: "성공했어!", state: "success" });
-    // setTimeout(() => {
-    //   setBanner(null);
-    // }, 3000);
+    sendContactEmail(form) //
+      .then(() => {
+        setBanner({ message: "메일 전송에 성공했습니다.", state: "success" });
+        setForm(DEFAULT_DATA);
+      })
+      .catch(() => {
+        setBanner({ message: "메일 전송에 실패했습니다.", state: "error" });
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setBanner(null);
+        }, 3000);
+      });
   };
   // 엘리랑 내꺼 비교
 
@@ -34,8 +44,6 @@ export default function ContactForm() {
       {banner && <Banner banner={banner} />}
       <form
         onSubmit={onSubmit}
-        action=""
-        method="POST"
         className="w-full flex flex-col gap-2 my-4 p-4 bg-slate-700 rounded-xl "
       >
         <label htmlFor="from" className="text-white">
@@ -44,7 +52,7 @@ export default function ContactForm() {
         <input
           type="email"
           id="from"
-          value={text.from}
+          value={form.from}
           name="from"
           // onChange={(e) => {
           //   setText({
@@ -61,7 +69,7 @@ export default function ContactForm() {
           type="text"
           id="subject"
           name="subject"
-          value={text.subject}
+          value={form.subject}
           // onChange={(e) => {
           //   setText({
           //     ...text,
@@ -90,7 +98,7 @@ export default function ContactForm() {
           //     message: e.target.value,
           //   });
           // }}
-          value={text.message}
+          value={form.message}
           onChange={onChange}
         />
         <button className="bg-yellow-300 text-black font-bold hover:bg-yellow-400">

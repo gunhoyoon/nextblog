@@ -2,7 +2,6 @@ import React from "react";
 import Proflie from "../components/proflie";
 import Feature from "../components/feature";
 import SlidePost from "../components/SlidePost";
-import NextPostsCard from "@/components/PostsCardPreview";
 export default function HomePage() {
   return (
     <>
