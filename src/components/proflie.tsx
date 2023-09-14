@@ -7,7 +7,7 @@ export default function Proflie() {
   return (
     <section className="text-center mb-3">
       <Image
-        className="rounded-full mx-auto"
+        className="mx-auto"
         src={ProfileImage}
         alt="Proflie"
         width={250}

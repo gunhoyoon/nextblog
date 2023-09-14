@@ -3,20 +3,38 @@ import { getPostData } from "../../../service/posts";
 import Image from "next/image";
 import PostDetailCard from "@/components/PostDetailCard";
 import PostsCardPreview from "@/components/PostsCardPreview";
+import { Metadata } from "next";
 type Props = {
   params: {
     slug: string;
   };
 };
+// Dynamic metadata // SEO 활용
+export async function generateMetadata({
+  params: { slug },
+}: Props): Promise<Metadata> {
+  const { title, description } = await getPostData(slug);
+  return {
+    title,
+    description,
+  };
+}
+
+// 상세 페이지 해당 데이터에 맞게 title 과 description 사용하기 x 이름 그대로 함수사용
 
 export default async function PostPage({ params: { slug } }: Props) {
   const post = await getPostData(slug);
   // 전체 데이터를 담은 Post // props로 넘겨주는 데이터
   // 이전 다음 게시물을 보여주고 넘어가게 하기 위해 prev , next 추가
+
   const { title, path, prev, next } = post;
   // post 상세 페이지
   // 전체 데이터인 post에서 title과 path만 구조분해해서 사용
   // 해당 페이지에선 상세 내용을 반환하기 때문에 이 페이지가 제공할건 , 상세 페이지 내용 / 이전 글 다음 글로 이동하는 기능이 필요함
+  const metadata: Metadata = {
+    title: `Post | ${title}`,
+    description: "건호의 커리어 소개",
+  };
 
   // 해당 컴포넌트에선 getPostData 에 해당하는 데이터중 title과 path 를 사용할거고
   // postDetailCard 에서 사용할 post 전체를 props 으로 넘겨줄거임
