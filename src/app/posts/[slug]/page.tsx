@@ -1,5 +1,5 @@
 import React from "react";
-import { getPostData } from "../../../service/posts";
+import { getFeatureedPost, getPostData } from "../../../service/posts";
 import Image from "next/image";
 import PostDetailCard from "@/components/PostDetailCard";
 import PostsCardPreview from "@/components/PostsCardPreview";
@@ -74,3 +74,15 @@ export default async function PostPage({ params: { slug } }: Props) {
 
 // 다음 포스트 , 이전 포스트 카드를 구현할 때에 한번에 너무 포괄적으로 생각하다보면 구현 자체가 머릿속에 그려지지않는데,
 // 전체의 데이터를 불러오게 해야된다면, 우선 하나라도 먼저 화면에 그려보고 하나씩 연결지어주는 순서로 구현하다보면 사고를 확장해가며 완성하게됨
+
+// 해당 페이지는 전체를 서버 사이드 렌더링으로 동작하게 됨.
+// 그래서 이걸 전부 다 서버 사이드로 하는게 아니라, 사람들이 많이 보는 게시물에 한해서 미리 만들어둬서 성능 최적화를 하고 싶음
+
+export async function generateStaticParams() {
+  const posts = await getFeatureedPost();
+  return posts.map((post) => ({
+    slug: post.path,
+    // slug 의 경로 자체가 /posts/[slug] 로 들어가기 때문에, 해당 slug의 값을 post.path 로 줌으로써 getFeatureedPost 에 해당하는
+    // post의 path 를 미리 만들어 둘 수 있음
+  }));
+}

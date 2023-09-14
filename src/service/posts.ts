@@ -2,6 +2,7 @@ import path from "path";
 // const path = require("path"); 로도 불러올 수 있음
 
 import { readFile } from "fs/promises";
+import { cache } from "react";
 
 export type Post = {
   title: string;
@@ -24,8 +25,15 @@ export async function getFeatureedPost(): Promise<Post[]> {
 export async function getSlidePost(): Promise<Post[]> {
   return getAllPosts().then((posts) => posts.filter((item) => !item.featured));
 }
-
-export async function getAllPosts(): Promise<Post[]> {
+// 리액트에서 제공하는 cache를 사용해 해당 함수가 호출 될 때 전달받는 인자가 같다면,
+// 다시 부르는게 아닌 이 전에 캐시된 데이터를 반환해준다. (중복된 데이터 요청 제거)
+// https://nextjs.org/docs/app/building-your-application/caching#full-route-cache
+// 현재는 대부분의 페이지를 static 하게 만들기 때문에 크게 차이가 없을 수 있지만, 서버 사이드 렌더링을 사용하게 되면 큰 차이가 있게 될 것임.
+export const getAllPosts = cache(async () => {
+  console.log("getAllPosts");
+  // fetch를 여러번 중복해서 요청한다 하더라도, nextjs 에서 자동으로 중복 제거를 해준다.
+  // 근데 해당 함수와 같이 파일 시스템에 접근해서 json 데이터를 불러오는 것과 데이터 베이스에 접근하는 함수들은 한번 렌더링 될 때 여러번 호출해도
+  // 중복 방지 없이 그대로 다 불려온다
   const filepath = path.join(process.cwd(), "data", "posts.json");
   return (
     readFile(filepath, "utf-8")
@@ -34,7 +42,8 @@ export async function getAllPosts(): Promise<Post[]> {
       .then((posts) => posts.sort((a, b) => (a.date > b.date ? -1 : 1)))
     // 1. 해당 코드에서 a에 대한 정보가 없기 떄문에 a.date를 이해못하고 있음
   );
-}
+});
+// export async function getAllPosts(): Promise<Post[]> {}
 
 export async function getPost(path: string): Promise<Post | undefined> {
   const products = await getAllPosts();
