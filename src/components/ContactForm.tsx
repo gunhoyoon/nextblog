@@ -23,13 +23,15 @@ export default function ContactForm() {
   };
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendContactEmail(form) //
+    // sendContactEmail 은 이메일에 해당하는 데이터(form) 데이터를 받아 클라이언트에서 서버로 POST를 요청하고, 해당 값을 반환하는 함수이므로
+    // 데이터를 넣어주고 성공 / 실패로 인한 처리가 필요함 / 마지막 파이널리는 성공이든 실패든 항상 해줘야할것. (배너 숨김처리)
+    sendContactEmail(form)
       .then(() => {
-        setBanner({ message: "메일 전송에 성공했습니다.", state: "success" });
+        setBanner({ message: "메일 전송을 성공했습니다!", state: "success" });
         setForm(DEFAULT_DATA);
       })
       .catch(() => {
-        setBanner({ message: "메일 전송에 실패했습니다.", state: "error" });
+        setBanner({ message: "메일 전송을 실패했습니다", state: "error" });
       })
       .finally(() => {
         setTimeout(() => {
